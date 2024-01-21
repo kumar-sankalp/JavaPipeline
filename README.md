@@ -41,3 +41,15 @@ https://stackoverflow.com/questions/65878769/cannot-install-docker-in-a-rhel-ser
     <br>
     yum -y install slirp4netns fuse-overlayfs container-selinux    <br>
     sudo yum install docker-ce    <br>
+
+
+
+Grant Jenkins user and Ubuntu user permission to docker deamon.
+
+sudo su -
+
+usermod -aG docker jenkins
+
+usermod -aG docker ubuntu
+
+systemctl restart docker
