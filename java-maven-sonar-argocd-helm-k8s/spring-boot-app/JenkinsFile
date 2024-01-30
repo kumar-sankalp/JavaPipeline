@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'echo passed!!!!'
-                git branch: 'main', url: 'https://github.com/kiranbakale/ultimate-cicd.git' ## replace with your github repository 
+                git branch: 'main', url: 'https://github.com/kumar-sankalp/JavaPipeline.git' ## replace with your github repository 
                 sh 'pwd'
                 sh 'ls'
             }
@@ -23,16 +23,7 @@ pipeline {
                 sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
             }
         }
-        stage('Static Code Analysis') {
-            environment {
-                SONAR_URL = "http://100.25.23.190:9000/"  ## replace the address once the sonarqube server is live 
-            }
-            steps {
-                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-                    sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
-                }
-            }
-        }
+        
         stage('Build and Push Docker Image') {
             environment {
                 DOCKER_IMAGE = "kiran63/ultimate-cicd:${BUILD_NUMBER}" ## replace the DockerHub account name with yours 
